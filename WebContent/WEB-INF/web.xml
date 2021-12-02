@@ -1,0 +1,18 @@
+<web-app xmlns="http://Java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="WebApp_ID" version="2.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<servlet>
+<servlet-name>Login</servlet-name>
+<servlet-class>com.authenticate.LoginServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>Login</servlet-name>
+<url-pattern>/Login</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>Register</servlet-name>
+<servlet-class>com.authenticate.RegisterServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>Register</servlet-name>
+<url-pattern>/Register</url-pattern>
+</servlet-mapping>
+</web-app>
