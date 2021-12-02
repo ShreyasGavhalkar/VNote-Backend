@@ -94,7 +94,7 @@
                        
                        
                        %>
-                    <p>Dont have account
+                    <p>Dont have account?
                     <a href="#" class="link-dark ">Register here.</a></p>
                 
                     </div>

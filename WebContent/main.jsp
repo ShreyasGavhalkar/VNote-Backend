@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -62,15 +59,15 @@
 
             <div class="col">
                 <h1 class = "font-weight-bold px-5 pt-5">Vnote</h1>
-                <h4 class = "px-5 pt-2 py-5">Welcome to organized life!</h4>
+                <h4 class = "px-5 pt-2 py-5">Welcome to an organized life!</h4>
                 <form class = "px-5">
 
                     <div class ="row">
                         <div class="col-lg-9">
-                            <h5> Add a new note/task:</h5>
+                            <h5 style="color: rgb(85, 85, 85);"> Add a new note/task:</h5>
                         </div>
                         <div class="col">
-                            <h5> Add Date (if task):</h5>
+                            <h5 style="color: rgb(85, 85, 85);"> Add Date (if task):</h5>
                         </div>
                         </div>
 <!-- Inputs -->
@@ -87,37 +84,85 @@
   
                     <div class ="form-row">
                         <div class="col-lg-4">
-                        <button type ="button" class="btn1 mt-3 mb-5">Add Note</button>
+                        <button type ="submit" name="delete" class="btn1 mt-3 mb-5">Add Note</button>
                     </div>
                 
                     </div>
                     
-
+<!-- Head labels -->
                 </form>
                 <div class ="row " >
                     <div class="col mx-3 px-5 py-3">
-                    
+                        <h5 style="color: rgb(85, 85, 85);"> Notes:</h5>
+                    </div>
+
+                    <div class="col mx-3 px-5 py-3">
+                        <h5 style="color: rgb(85, 85, 85);"> Tasks:</h5>
                     </div>
 
                 </div>
 
 
 <!-- Output Tables -->
-                <div class ="row " >
+                <div class ="row py-4 px-4" >
                     <div class="col mx-3 px-5 py-5" style=" background:rgb(235, 235, 235) ;
                     border-radius: 26px;
                     box-shadow: 0px 8px 15px rgb(107, 107, 107);">
-                        <h5> Notes:</h5>
-                        <output name="notes"> No Notes yet</output>
+                    <!-- label -->
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked">
+                          </div>
+                          <!-- output -->
+                        <output name="notes">No Notes yet</output>   
                     </div>
     
                     <div class="col mx-3 px-5 py-5"style=" background: rgb(235, 235, 235);
                     border-radius: 26px;
                     box-shadow: 0px 8px 15px rgb(107, 107, 107);">
-                        <h5> Tasks:</h5>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked">
+                      </div>
+                        
                         <output name="notes"> No Tasks yet</output>
+                           
                     </div>
-                </div>  
+                </div> 
+
+                <!-- ============Line 2 repeat of above (can use only above for loop)================= -->
+                <div class ="row py-4 px-4" >
+                    <div class="col mx-3 px-5 py-5" style=" background:rgb(235, 235, 235) ;
+                    border-radius: 26px;
+                    box-shadow: 0px 8px 15px rgb(107, 107, 107);">
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked">
+                      </div>
+                    <output name="notes"> No Tasks yet</output>
+                
+                </div>
+    
+                    <div class="col mx-3 px-5 py-5"style=" background: rgb(235, 235, 235);
+                    border-radius: 26px;
+                    box-shadow: 0px 8px 15px rgb(107, 107, 107);">
+
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked">
+                      </div>
+                       
+                        <output name="notes"> No Tasks yet</output>
+                           
+                    </div>
+                </div>
+                <!-- ================ line 2 end============= -->
+                
+<!-- Button 2 -->
+
+                <div class ="form-row px-5">
+                    <div class="col-lg-4">
+                    <button type ="button" name="delete" class="btn1 mt-3 mb-5">Delete Selected</button>
+                </div>
+            
+                </div>
+
                 <div class ="row " >
                     <div class="col mx-3 px-5 py-3">
                     
