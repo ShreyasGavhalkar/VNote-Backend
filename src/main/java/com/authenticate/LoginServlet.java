@@ -17,6 +17,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		System.out.println("In get post");
 		if (session.getAttribute("user") == null || session.getAttribute("user") == "FAIL") {
+			
 			String email = req.getParameter("email");
 			String password = req.getParameter("password");
 			System.out.println("In session IF");

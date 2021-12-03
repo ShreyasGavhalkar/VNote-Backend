@@ -67,12 +67,12 @@
 
                     <div class ="form-row">
                         <div class="col-lg-7">
-                            <input type ="email" placeholder="Email-Address" class = "form-control my-3 p-4 ">
+                            <input type ="email" name = "email" placeholder="Email-Address" class = "form-control my-3 p-4 ">
                         </div>
                         </div>
                     <div class ="form-row">
                         <div class="col-lg-7">
-                        <input type ="password" placeholder="******" class = "form-control my-3 p-4">
+                        <input type ="password" name = "password" placeholder="******" class = "form-control my-3 p-4">
                     </div>
                         </div>
                     <div class ="form-row">
