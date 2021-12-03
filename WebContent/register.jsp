@@ -93,7 +93,7 @@
                         </div>
                     <div class ="form-row">
                         <div class="col-lg-7">
-                        <input type ="password" name="pass" placeholder="Set Password" class = "form-control my-3 p-4">
+                        <input type ="password" name="password" placeholder="Set Password" class = "form-control my-3 p-4">
                     </div>
                         </div>
                     <div class ="form-row">
