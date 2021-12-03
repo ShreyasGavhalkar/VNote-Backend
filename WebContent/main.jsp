@@ -281,7 +281,7 @@
                     	  String id_note = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"" + notes.get(i)[1] +  "\" checked\"> </div>";
                     	  String id_todo = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"" + todos.get(i)[1] +  "\" checked\"> </div>";
                     	  String note_content = "<output name=\"notes\">"+notes.get(i)[0]+"</output> </div>";   //notes.get(i).get(2)
-                    	  String todo_content = "<output name=\"todo\">"+todos.get(i)[0]+"</output> </div>"; //todo.get(i).get(2)
+                    	  String todo_content = "<output name=\"todo\">"+todos.get(j)[0]+"</output> <br><br><br> <b> Deadline: "+todos.get(j)[2]+"</b></div>"; 
                     	  
                     	  out.println(div1);
                     	  out.println(div2);
@@ -315,7 +315,7 @@
                     	  String div3 = "box-shadow: 0px 8px 15px rgb(107, 107, 107);\">";
                     	  String div4 = " <div class=\"form-check-inline\">";
                     	  String id_todo = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"" + todos.get(j)[1] +  "\" checked\"> </div>";
-                       	  String todo_content = "<output name=\"todo\">"+todos.get(j)[0]+"</output> </div>"; 
+                    	  String todo_content = "<output name=\"todo\">"+todos.get(j)[0]+"</output> <br><br><br> <b> Deadline: "+todos.get(j)[2]+"</b></div>"; 
                        	  
                        	  
                     	  out.println(div1);
