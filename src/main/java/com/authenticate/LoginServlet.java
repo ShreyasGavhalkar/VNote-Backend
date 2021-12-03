@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class LoginServlet extends HttpServlet {
-	static final String url = "jdbc:mysql://localhost/"; // required for jdbc
+	static final String url = "jdbc:mysql://localhost:3306/trial"; // required for jdbc
 	static final String sqlUser = "root";
 	static final String sqlPassword = "root@SQL123";
 
@@ -17,7 +17,6 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		System.out.println("In get post");
 		if (session.getAttribute("user") == null || session.getAttribute("user") == "FAIL") {
-			
 			String email = req.getParameter("email");
 			String password = req.getParameter("password");
 			System.out.println("In session IF");
@@ -42,6 +41,9 @@ public class LoginServlet extends HttpServlet {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} 
 		
@@ -52,22 +54,35 @@ public class LoginServlet extends HttpServlet {
 		}
 
 	}
-	public boolean valid_login(String email, String password) throws SQLException 
+	public boolean valid_login(String email, String password) throws SQLException, ClassNotFoundException 
 	{ // data base code goes here
-		try (Connection conn = DriverManager.getConnection(url, sqlUser, sqlPassword); Statement smt = conn.createStatement();) {
-			smt.executeUpdate("USE Vnote"); // select jdbc
-
-			ResultSet rs = smt.executeQuery("SELECT * FROM userauth WHERE email= " + email);
-													
-			String pass = rs.getString("pass");
-			System.out.println("Password passed: "+password);
-			System.out.println("Password in DB: "+rs.getString("pass"));
-			if (pass.equals(password)) { // check password
-				return true;
-			} 
+		Class.forName("com.mysql.jdbc.Driver");
+		try ( Connection conn = DriverManager.getConnection(url, sqlUser, sqlPassword); Statement smt = conn.createStatement();) {
+			//smt.executeUpdate("USE Vnote"); // select jdbc
 			
+			System.out.println("Password passed: "+password);
+			System.out.println("Email passed: "+email);
+
+//			email="shreyas@gmail.com";
+//			password="shreyas";
+			
+			ResultSet rs = smt.executeQuery("SELECT * FROM userauth WHERE email= '" + email+"'");
+													
+			if (rs.next()) {
+				System.out.println("In in! thats what she sad...");
+				String pass = rs.getString("pass");
+				System.out.println("Password in DB: " + rs.getString("pass"));
+				if (pass.equals(password)) { // check password
+					return true;
+				}
+
+				else {
+					return false;
+				} 
+			}
 			else {
-				return false;				
+				System.out.println("Empty yetay be");
+				return false;
 			}
 		}
 	}

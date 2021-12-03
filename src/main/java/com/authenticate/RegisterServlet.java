@@ -10,28 +10,38 @@ import java.sql.*;
 
 public class RegisterServlet extends HttpServlet {
 	// init of req attributes for connection with DB
-	static final String url = "jdbc:mqsql://localhost/";
-	static final String user = "root";
-	static final String pass= "root@SQL123";
-
+	static final String url = "jdbc:mysql://localhost:3306/trial"; // required for jdbc
+	static final String sqlUser = "root";
+	static final String sqlPassword = "root@SQL123";
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		HttpSession session = req.getSession();
 
 		if (session.getAttribute("user") == null || session.getAttribute("user") == "FAIL") {
 			String email = req.getParameter("email");
 			String password = req.getParameter("password");
-			String Fname = req.getParameter("Fname");
-			String Lname = req.getParameter("Lname");
+			//String Fname = req.getParameter("Fname");
+		// Lname = req.getParameter("Lname");
 
-			if (registered(Fname, Lname, password, email)) 
-			{
-				session.setAttribute("user", email);
-				res.sendRedirect("main.jsp");
-			}
-			else 
-			{
-				session.setAttribute("user", "FAIL");
-				res.sendRedirect("register.jsp");
+			try {
+				System.out.println("in TRY");
+				if (registered(password, email)) 
+				{
+					System.out.println("In session IF");
+					session.setAttribute("user", email);
+					res.sendRedirect("main.jsp");
+				}
+				else 
+				{
+					System.out.println("In session Else");
+					session.setAttribute("user", "FAIL");
+					res.sendRedirect("register.jsp");
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		} 
@@ -44,19 +54,27 @@ public class RegisterServlet extends HttpServlet {
 	}
 	
 
-	public boolean registered(String Fname, String Lname, String password, String email) // Lord Shreyas will write this
+	public boolean registered(String password, String email) throws ClassNotFoundException // Lord Shreyas will write this
 	{
 		// code for registration
-		try (Connection conn = DriverManager.getConnection(url, user, password); Statement smt = conn.createStatement()) {
+		Class.forName("com.mysql.jdbc.Driver");
+		try (Connection conn = DriverManager.getConnection(url, sqlUser, sqlPassword); Statement smt = conn.createStatement()) {
 //			// checking for email in userauth, i am assuming passqord integrity is already
 //			// verified
-			smt.executeUpdate("USE trial"); //TODO: chnage to final DB before presentation
-			ResultSet rs = smt.executeQuery("SELECT * FROM userauth WHERE email= " + email);
+			
+			System.out.println("Passed password: "+password);
+			System.out.println("passed email: "+email);
+			String Fname="trialFname";
+			String Lname="trialLname";
+			
+		//	smt.executeUpdate("USE trial"); //TODO: chnage to final DB before presentation
+			ResultSet rs = smt.executeQuery("SELECT * FROM userauth WHERE email= \"" + email+"\"");
 			if (!rs.next()) { // rs will be empy if the email does not exist in our database, so this part
 												// will add it to the databse
 				System.out.println("Registering...");
-				smt.executeUpdate("INSERT INTO userauth VALUES(email= " + email + ", fname= " + Fname + ", lname= " + Lname
-						+ ",pass= " + password + ")");
+				String query="INSERT INTO userauth VALUES(\""+email+"\", \"shreyas\", \"g\",\""+password+"\")";
+				System.out.println("query is: "+query);
+				smt.executeUpdate(query);
 				return true;
 
 			} else {
@@ -66,6 +84,7 @@ public class RegisterServlet extends HttpServlet {
 
 		}
 		catch(SQLException e) {
+			System.out.println("Exception occured "+e);
 			return false;
 			//TODO: handle exception
 		}
