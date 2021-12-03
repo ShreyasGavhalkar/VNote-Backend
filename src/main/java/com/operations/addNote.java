@@ -31,36 +31,37 @@ public class addNote  extends HttpServlet
         }
 		else
 		{
+			
 			String Notes = req.getParameter("NewNote");
 			System.out.println(Notes);
-			String email=(String) session.getAttribute("email");
+			String email=(String) session.getAttribute("user");
 			
 			String[] details = Notes.split(",");
 			ArrayList<String> Data = new ArrayList<String>(Arrays.asList(details));
+			System.out.println("Data from user:"+Data);
 			
-			System.out.println(Data.size());
-			System.out.println(Data);
-			String Deadline=Data.get(1);
-			System.out.println("Deadline is : "+Deadline);
-			int task;
-			boolean rvalue;  //as per lord Alok's request, this is what holds the function's return value
-			if(Deadline.equals("NULL")) {
-				task=0;     //not a task   
+		    try 
+		    {
+		    	
+		    	
+		    			
+		    	if(add(email,Data.get(0),Data.get(1),(Data.get(1).equals("NULL")?0:1) ) )
+				{
+					res.sendRedirect("main.jsp");
+				}
+		    	else
+		    	{
+		    		//res.sendRedirect("main.jsp");
+		    	}
+		    }
+		    catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			else {
-				task=1;   //is a task
-			}
-			String note=Data.get(0);
-//			try {
-//				rvalue=add(email,note,Deadline,task);
-//			} catch (ClassNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			res.sendRedirect("main.jsp");
+			
 		}
 		
 		
@@ -76,8 +77,12 @@ public class addNote  extends HttpServlet
 		try(Connection conn= DriverManager.getConnection(url, sqlUser, sqlPassword); Statement smt= conn.createStatement();){
 			
 			//smt.executeUpdate("USE Vnote"); //shift to the working DB
-			
-				smt.executeUpdate("INSERT INTO `"+email+"` VALUES(\""+note+"\", \""+task+"\", \""+deadline+"\")");
+			    System.out.println("Email Passed: "+ email);
+			    System.out.println("Note Passed: "+note);
+			    System.out.println("Deadline passed: "+ deadline);
+			    System.out.println("task: passed: "+ task);
+			    
+				smt.executeUpdate("INSERT INTO `"+email+"`(note,task,deadline) VALUES(\""+note+"\", \""+task+"\", \""+deadline+"\")");
 				//TODO: figure out how to save deadline
 				return true;	
 		}

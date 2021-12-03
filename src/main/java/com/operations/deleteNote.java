@@ -2,6 +2,7 @@ package com.operations;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,11 +30,18 @@ public class deleteNote  extends HttpServlet{
 			String IDs = req.getParameter("SelectedItems");
 			System.out.println(IDs);
 			
-			String email= (String) session.getAttribute("email"); //get email from session
-			System.out.println(email);    //for debugging
+			String[] ID_array = IDs.split(",");
+			ArrayList<String> ID_list= new ArrayList<String>(Arrays.asList(ID_array));  //for debugging
+			
 			if(!IDs.isEmpty())
-			{ //delete in database, do the needful
+			{   try {
+				delete_note(ID_list,(String)session.getAttribute("user"));
 				res.sendRedirect("main.jsp");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
 			}
 			
 			 //whenever you call the delete_note function, you will have to handle the ClassNotFound Exception

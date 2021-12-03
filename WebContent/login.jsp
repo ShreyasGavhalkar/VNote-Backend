@@ -85,7 +85,7 @@
                         	   if(session.getAttribute("user") == "FAIL")
                         	   {
                         		   out.println("<b>Wrong password or email.</b>");
-                        		   //session.getAttribute("user") = null;
+                        		   session.setAttribute("user",null);
                         	   }
                         	   else
                         	   {
@@ -96,7 +96,7 @@
                        
                        %>
                     <p>Dont have account?
-                    <a href="#" class="link-dark ">Register here.</a></p>
+                    <a href="register.jsp" class="link-dark ">Register here.</a></p>
                 
                     </div>
                 </form>

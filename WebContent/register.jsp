@@ -107,6 +107,7 @@
                         	   if(session.getAttribute("user") == "FAIL")
                         	   {
                         		   out.println("<b>Email already in use. </b>");
+                        		   session.setAttribute("user",null);
                         	   }
                         	   else
                         	   {
@@ -117,7 +118,7 @@
                        
                        %> 
                     <p>Go back to
-                    <a href="#" class="link-dark ">Login Page.</a></p>
+                    <a href="login.jsp" class="link-dark ">Login Page.</a></p>
                 
                     </div>
                 </form>

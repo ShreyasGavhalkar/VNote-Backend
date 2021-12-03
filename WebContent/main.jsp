@@ -98,7 +98,7 @@
   		    var data = []
   		    data.push(newnote.value);
   		  var date_val = newdate.value;
-  			if(data_val === "")
+  			if(date_val === "")
   			{
   		   		date_val = "NULL";
   			}
@@ -120,10 +120,14 @@
   <%@ page import="java.util.ArrayList"  %>
   <%@ page import="java.sql.*"  %>
   <%
-      //if(session.getAttribute("user") == null || session.getAttribute("user") == "FAIL")
-     // {
-       //  response.sendRedirect("login.jsp");
-      //}
+      if(session.getAttribute("user") == null || session.getAttribute("user") == "FAIL")
+      {
+         response.sendRedirect("login.jsp");
+      }
+      else
+      {
+    	  System.out.println("Email: "+session.getAttribute("user"));
+      }
     
       
   %>
@@ -160,7 +164,7 @@
   		}
   		catch(SQLException e){
   			System.out.println(e);
-  			return null;
+  			return (new ArrayList<String[]>());
   		}
   	}
   	
@@ -192,7 +196,7 @@
   		}
   		catch(SQLException e){
   			System.out.println(e);
-  			return null;
+  			return (new ArrayList<String[]>());
   		}
   		
   	}
@@ -255,14 +259,18 @@
 
 <!-- Output Tables -->
                 <%
-                    ArrayList< ArrayList<String>> notes = new ArrayList< ArrayList<String>>(); //get_notes(session.getAttribute("user")); //[id, note]
-                	ArrayList< ArrayList<String>> todos = new ArrayList< ArrayList<String>>(); //get_todos(session.getAttribute("user")); //[id, todo, deadline]
+                    ArrayList<String[]> notes = fetchNotes((String)session.getAttribute("user")); //get_notes(session.getAttribute("user")); //[id, note]
+                	ArrayList<String[]> todos = fetchTasks((String)session.getAttribute("user")); //get_todos(session.getAttribute("user")); //[id, todo, deadline]
+                    System.out.println("Note array size: "+notes.size());
+                    System.out.println("todos array size: "+todos.size());
+
+                    
                     //[id, note]
-                    fetchNotes("shreyas@gmail.com");
-                	fetchTasks("shreyas@gmail.com");
-                	 int i = 1;
-                	 int j = 1;
-                      for(; i<=10 && j<=14; i++,j++)
+                    //fetchNotes("shreyas@gmail.com");
+                	//fetchTasks("shreyas@gmail.com");
+                	 int i = 0;
+                	 int j = 0;
+                      for(; i<notes.size() && j<todos.size(); i++,j++)
                       { 
                     	  //First the note (i)
                     	  String div1 =  "<div class =\"row py-4 px-4\" > ";
@@ -270,15 +278,16 @@
                     	  
                     	  String div3 = "box-shadow: 0px 8px 15px rgb(107, 107, 107);\">";
                     	  String div4 = " <div class=\"form-check-inline\">";
-                    	  String div5 = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckChecked\" checked\"> </div>";;
-                    	  String note_content = "<output name=\"notes\">"+"Note"+i+"</output> </div>";   //notes.get(i).get(2)
-                    	  String todo_content = "<output name=\"notes\">"+"Todo"+j+"</output> </div>"; //todo.get(i).get(2)
+                    	  String id_note = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"" + notes.get(i)[1] +  "\" checked\"> </div>";
+                    	  String id_todo = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"" + todos.get(i)[1] +  "\" checked\"> </div>";
+                    	  String note_content = "<output name=\"notes\">"+notes.get(i)[0]+"</output> </div>";   //notes.get(i).get(2)
+                    	  String todo_content = "<output name=\"todo\">"+todos.get(i)[0]+"</output> </div>"; //todo.get(i).get(2)
                     	  
                     	  out.println(div1);
                     	  out.println(div2);
                     	  out.println(div3);
                     	  out.println(div4);
-                    	  out.println(div5);
+                    	  out.println(id_note);
                     	  out.println(note_content);
                     	  
                     	  
@@ -288,7 +297,7 @@
                     	  out.println(div2);
                     	  out.println(div3);
                     	  out.println(div4);
-                    	  out.println(div5);
+                    	  out.println(id_todo);
                     	  out.println(todo_content);
                     	  out.println("</div>");
 
@@ -297,17 +306,18 @@
                       }
                       
                       
-                      if(j<=14)
-                      { for(; j<=14; j++)
+                      if(j<todos.size())
+                      { for(; j<todos.size(); j++)
                          {
                     	  
                     	  String div1 =  "<div class =\"row py-4 px-4\" > ";
                     	  String div2 = "<div class=\"col mx-3 px-5 py-5\" style=\" background:rgb(235, 235, 235) ;"+" border-radius: 26px;";
                     	  String div3 = "box-shadow: 0px 8px 15px rgb(107, 107, 107);\">";
                     	  String div4 = " <div class=\"form-check-inline\">";
-                    	  String div5 = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"sqlid\" checked\"> </div>";
-                    	 
-                    	  String todo_content = "<output name=\"notes\">"+"Todo"+j+"</output> </div>" ; //todo.get(i).get(2)
+                    	  String id_todo = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"" + todos.get(j)[1] +  "\" checked\"> </div>";
+                       	  String todo_content = "<output name=\"todo\">"+todos.get(j)[0]+"</output> </div>"; 
+                       	  
+                       	  
                     	  out.println(div1);
                     	  out.println("<div class=\"col mx-3 px-5 py-5\" style=\" background:rgb(255, 255, 255) ;"+" border-radius: 26px;");
                     	  out.println("box-shadow: 0px 0px 0px rgb(255, 255, 255);\">");
@@ -317,12 +327,42 @@
                     	  out.println(div2);
                     	  out.println(div3);
                     	  out.println(div4);
-                    	  out.println(div5);
+                    	  out.println(id_todo);
                     	  out.println(todo_content);
                     	  out.println("</div>");
                     	  
                     	  
                          }
+                      }
+                      else if(i<notes.size())
+                      {
+                    	  for(; i<notes.size(); i++)
+                          {
+                     	  
+                     	  String div1 =  "<div class =\"row py-4 px-4\" > ";
+                     	  String div2 = "<div class=\"col mx-3 px-5 py-5\" style=\" background:rgb(235, 235, 235) ;"+" border-radius: 26px;";
+                     	  String div3 = "box-shadow: 0px 8px 15px rgb(107, 107, 107);\">";
+                     	  String div4 = " <div class=\"form-check-inline\">";
+                     	  String id_note = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"" + notes.get(i)[1] +  "\" checked\"> </div>";
+                     	  String note_content = "<output name=\"notes\">"+notes.get(i)[0]+"</output> </div>"; 
+                        	  
+                             	  
+                     	  out.println(div1);
+                     	  out.println(div2);
+                     	  out.println(div3);
+                     	  out.println(div4);
+                     	  out.println(id_note);
+                     	  out.println(note_content);
+                     	  
+                     	  
+                     	  out.println("<div class=\"col mx-3 px-5 py-5\" style=\" background:rgb(255, 255, 255) ;"+" border-radius: 26px;");
+                    	  out.println("box-shadow: 0px 0px 0px rgb(255, 255, 255);\">");
+                    	  out.println("</div>");
+                    	  out.println("</div>");
+                     	  
+                     	  
+                          }
+                    	  
                       }
                 %>
              

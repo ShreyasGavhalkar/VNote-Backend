@@ -76,9 +76,11 @@ public class RegisterServlet extends HttpServlet {
 				String query="INSERT INTO userauth VALUES(\""+email+"\", \""+password+"\")";
 				System.out.println("query is: "+query);
 				smt.executeUpdate(query);
-				query="CREATE TABLE `"+email+"' ((id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, note VARCHAR(8000), task INTEGER, deadline VARCHAR(100)";
-				smt.executeUpdate(query);
+				
+				query="CREATE TABLE `"+email+"` (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, note VARCHAR(8000), task INTEGER, deadline VARCHAR(100));";
 				System.out.println("query is: "+query);
+				smt.executeUpdate(query);
+				
 				return true;
 
 			} else {
