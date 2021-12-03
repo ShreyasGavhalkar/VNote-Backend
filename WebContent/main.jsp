@@ -51,6 +51,15 @@
   </div>
   </head>
   <body>
+  <%@ page import="java.util.ArrayList"  %>
+  <%
+      //if(session.getAttribute("user") == null || session.getAttribute("user") == "FAIL")
+     // {
+       //  response.sendRedirect("login.jsp");
+      //}
+    
+      
+  %>
     <section class ="Form my-3 mx-3 ">
     <div class="container-fluid" >
         <div class ="row " style=" background: white;
@@ -104,6 +113,75 @@
 
 
 <!-- Output Tables -->
+                <%
+                    ArrayList< ArrayList<String>> notes = new ArrayList< ArrayList<String>>(); //get_notes(session.getAttribute("user"));
+                	ArrayList< ArrayList<String>> todos = new ArrayList< ArrayList<String>>(); //get_todos(session.getAttribute("user"));
+                	
+                	 int i = 1;
+                	 int j = 1;
+                      for(; i<=10 && j<=14; i++,j++)
+                      { 
+                    	  //First the note (i)
+                    	  String div1 =  "<div class =\"row py-4 px-4\" > ";
+                    	  String div2 = "<div class=\"col mx-3 px-5 py-5\" style=\" background:rgb(235, 235, 235) ;"+" border-radius: 26px;";
+                    	  
+                    	  String div3 = "box-shadow: 0px 8px 15px rgb(107, 107, 107);\">";
+                    	  String div4 = " <div class=\"form-check-inline\">";
+                    	  String div5 = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckChecked\" checked\"> </div>";;
+                    	  String note_content = "<output name=\"notes\">"+"Note"+i+"</output> </div>";   //notes.get(i).get(2)
+                    	  String todo_content = "<output name=\"notes\">"+"Todo"+j+"</output> </div>"; //todo.get(i).get(2)
+                    	  
+                    	  out.println(div1);
+                    	  out.println(div2);
+                    	  out.println(div3);
+                    	  out.println(div4);
+                    	  out.println(div5);
+                    	  out.println(note_content);
+                    	  
+                    	  
+                    	  //First the todo (j)
+                    	  
+                    	  
+                    	  out.println(div2);
+                    	  out.println(div3);
+                    	  out.println(div4);
+                    	  out.println(div5);
+                    	  out.println(todo_content);
+                    	  out.println("</div>");
+
+                    	                     	  
+                    	 
+                      }
+                      
+                      
+                      if(j<=14)
+                      { for(; j<=14; j++)
+                         {
+                    	  
+                    	  String div1 =  "<div class =\"row py-4 px-4\" > ";
+                    	  String div2 = "<div class=\"col mx-3 px-5 py-5\" style=\" background:rgb(235, 235, 235) ;"+" border-radius: 26px;";
+                    	  String div3 = "box-shadow: 0px 8px 15px rgb(107, 107, 107);\">";
+                    	  String div4 = " <div class=\"form-check-inline\">";
+                    	  String div5 = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"flexCheckChecked\" checked\"> </div>";
+                    	 
+                    	  String todo_content = "<output name=\"notes\">"+"Todo"+j+"</output> </div>" ; //todo.get(i).get(2)
+                    	  out.println(div1);
+                    	  out.println("<div class=\"col mx-3 px-5 py-5\" style=\" background:rgb(255, 255, 255) ;"+" border-radius: 26px;");
+                    	  out.println("box-shadow: 0px 0px 0px rgb(255, 255, 255);\">");
+                    	  out.println("</div>");
+                    	  
+                    	 // out.println(div1);
+                    	  out.println(div2);
+                    	  out.println(div3);
+                    	  out.println(div4);
+                    	  out.println(div5);
+                    	  out.println(todo_content);
+                    	  out.println("</div>");
+                    	  
+                    	  
+                         }
+                      }
+                %>
                 <div class ="row py-4 px-4" >
                     <div class="col mx-3 px-5 py-5" style=" background:rgb(235, 235, 235) ;
                     border-radius: 26px;
@@ -129,6 +207,7 @@
                 </div> 
 
                 <!-- ============Line 2 repeat of above (can use only above for loop)================= -->
+               
                 <div class ="row py-4 px-4" >
                     <div class="col mx-3 px-5 py-5" style=" background:rgb(235, 235, 235) ;
                     border-radius: 26px;
