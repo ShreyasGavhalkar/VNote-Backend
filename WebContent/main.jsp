@@ -97,7 +97,12 @@
           {
   		    var data = []
   		    data.push(newnote.value);
-  		    data.push(newdate.value);
+  		  var date_val = newdate.value;
+  			if(data_val === "")
+  			{
+  		   		date_val = "NULL";
+  			}
+  		    data.push(date_val);
   		    var NewNote = document.getElementById("NewNote");
   		    NewNote.value = data.join(",");
   		    

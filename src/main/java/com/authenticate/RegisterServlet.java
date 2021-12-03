@@ -64,17 +64,21 @@ public class RegisterServlet extends HttpServlet {
 			
 			System.out.println("Passed password: "+password);
 			System.out.println("passed email: "+email);
-			String Fname="trialFname";
-			String Lname="trialLname";
+
 			
 		//	smt.executeUpdate("USE trial"); //TODO: chnage to final DB before presentation
 			ResultSet rs = smt.executeQuery("SELECT * FROM userauth WHERE email= \"" + email+"\"");
+			
+			
 			if (!rs.next()) { // rs will be empy if the email does not exist in our database, so this part
 												// will add it to the databse
 				System.out.println("Registering...");
-				String query="INSERT INTO userauth VALUES(\""+email+"\", \"shreyas\", \"g\",\""+password+"\")";
+				String query="INSERT INTO userauth VALUES(\""+email+"\", \""+password+"\")";
 				System.out.println("query is: "+query);
 				smt.executeUpdate(query);
+				query="CREATE TABLE `"+email+"' ((id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, note VARCHAR(8000), task INTEGER, deadline VARCHAR(100)";
+				smt.executeUpdate(query);
+				System.out.println("query is: "+query);
 				return true;
 
 			} else {

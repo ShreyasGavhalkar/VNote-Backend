@@ -1,6 +1,8 @@
 package com.operations;
 
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,56 +15,69 @@ import jakarta.servlet.http.HttpSession;
 
 public class addNote  extends HttpServlet 
 {
-	static final String url = "jdbc:mysql://localhost/"; // init attributes for jdbc
+	static final String url = "jdbc:mysql://localhost:3306/trial"; // required for jdbc
 	static final String sqlUser = "root";
-	static final String sqlPass= "root@SQL123";
+	static final String sqlPassword = "root@SQL123";
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException
 	{
         HttpSession session = req.getSession();
 		
-//		if(session.getAttribute("user")==null || session.getAttribute("user") == "FAIL")
-//        {
-//           
-//              res.sendRedirect("login.jsp");
-//              
-//              
-//        }
-		//else
+		if(session.getAttribute("user")==null || session.getAttribute("user") == "FAIL")
+        {
+           
+              res.sendRedirect("login.jsp");
+              
+              
+        }
+		else
 		{
 			String Notes = req.getParameter("NewNote");
 			System.out.println(Notes);
-			
-			
-			 res.sendRedirect("main.jsp");
+			String email=(String) session.getAttribute("email");
+			String[] details = Notes.split(",");
+			ArrayList<String> strlist = new ArrayList<String>(Arrays.asList(details));
+			ArrayList<String> Data = new ArrayList<String>(Arrays.asList(Notes));
+			System.out.println(Data);
+			String Deadline=Data.get(1);
+			System.out.println("Deadline is : "+Deadline);
+			int task;
+			boolean rvalue;
+			if(Deadline.equals("NULL")) {
+				task=0;     //not a task
+			}
+			else {
+				task=1;   //is a task
+			}
+			String note=Data.get(0);
+//			try {
+//				rvalue=add(email,note,Deadline,task);
+//			} catch (ClassNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			res.sendRedirect("main.jsp");
 		}
 		
 		
 		
 	}
-	public boolean add() throws SQLException {
-		String email="shreyas@gmail.com", note="";  //hardcoded for now, will need the following:
+	public boolean add(String email, String note, String deadline, int task) throws SQLException, ClassNotFoundException {
+		
+		//String email="shreyas@gmail.com", note="";  //hardcoded for now, will need the following:
 													//email, note, task(could be int or bool) and deadline
-		int task=0;
-		int deadline=50;
-		try(Connection conn= DriverManager.getConnection(url, sqlUser, sqlPass); Statement smt= conn.createStatement();){
+		//int task=0;
+		//int deadline=50;
+		Class.forName("com.mysql.jdbc.Driver");
+		try(Connection conn= DriverManager.getConnection(url, sqlUser, sqlPassword); Statement smt= conn.createStatement();){
 			
-			smt.executeUpdate("USE Vnote"); //shift to the working DB
+			//smt.executeUpdate("USE Vnote"); //shift to the working DB
 			
-			ResultSet rs= smt.executeQuery("SHOW TABLES LIKE 'shreyas@gmail.com");
-			
-			if(!rs.next()) {   //empty result set.. the tbale does not exist..
-				
-				smt.executeUpdate("CREATE TABLE `"+email+"`(note VARCHAR(8000), task INTEGER, deadline INTEGER)");
-				//create new table with email as name
-				
-				smt.executeUpdate("INSERT INTO `"+email+"` VALUES("+note+", "+task+", "+deadline+")");
+				smt.executeUpdate("INSERT INTO `"+email+"` VALUES(\""+note+"\", \""+task+"\", \""+deadline+"\")");
 				//TODO: figure out how to save deadline
-				return true;
-			}
-			else { //the user already has a table named after them.. just add the note
-				smt.executeUpdate("INSERT INTO `"+email+"` VALUES("+note+", "+task+", "+deadline+")");
-				return true;
-			}	
+				return true;	
 		}
 		catch (SQLException e) {
 			//TODO: handle this shit
