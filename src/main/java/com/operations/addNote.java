@@ -34,9 +34,10 @@ public class addNote  extends HttpServlet
 			String Notes = req.getParameter("NewNote");
 			System.out.println(Notes);
 			String email=(String) session.getAttribute("email");
+			
 			String[] details = Notes.split(",");
-			ArrayList<String> strlist = new ArrayList<String>(Arrays.asList(details));
-			ArrayList<String> Data = new ArrayList<String>(Arrays.asList(Notes));
+			ArrayList<String> Data = new ArrayList<String>(Arrays.asList(details));
+			
 			System.out.println(Data);
 			String Deadline=Data.get(1);
 			System.out.println("Deadline is : "+Deadline);
