@@ -105,7 +105,7 @@
   		    data.push(date_val);
   		    var NewNote = document.getElementById("NewNote");
   		    NewNote.value = data.join(",");
-  		    
+  		    console.log(data);
   		    document.getElementById("addnote").submit();
   		    return true;
           }
@@ -116,9 +116,9 @@
       
   
   
-  
   </script>
   <%@ page import="java.util.ArrayList"  %>
+  <%@ page import="java.sql.*"  %>
   <%
       //if(session.getAttribute("user") == null || session.getAttribute("user") == "FAIL")
      // {
@@ -126,6 +126,79 @@
       //}
     
       
+  %>
+  <%!
+  	
+  	String url = "jdbc:mysql://localhost:3306/trial"; // required for jdbc
+	String sqlUser = "root";
+	String sqlPassword = "root@SQL123";
+  	
+	
+	
+  	public ArrayList<String[]> fetchNotes(String email) throws ClassNotFoundException{
+  		ArrayList<String[]> retNotes= new ArrayList<String[]>();
+  		Class.forName("com.mysql.jdbc.Driver");   //load driver
+  		try(Connection conn= DriverManager.getConnection(url, sqlUser, sqlPassword); Statement smt= conn.createStatement();){
+ 			System.out.println("NOTES:");
+  			String query="SELECT * FROM `"+email+"` WHERE task= 0";
+  			ResultSet rs = smt.executeQuery(query);
+  			while(rs.next()){
+  	  			String[] data= new String[2];      //this has note at 0 and id at 1 indices
+  				String note=rs.getString("note");
+  				int id= rs.getInt("id");
+  				data[0]=note;
+  				System.out.println("Data[0]: "+data[0]);
+  				
+  				
+  				data[1]=String.valueOf(id);
+  				System.out.println("Data[1]: "+data[1]);
+  				retNotes.add(data);
+  				System.out.println("Data is: "+data);
+  			}
+  			System.out.println(retNotes.toString());
+  			return retNotes;
+  		}
+  		catch(SQLException e){
+  			System.out.println(e);
+  			return null;
+  		}
+  	}
+  	
+  	public ArrayList<String[]> fetchTasks(String email) throws ClassNotFoundException, SQLException{
+  		ArrayList<String[]> retTasks= new ArrayList<String[]>();  //thsi holds the vlues that the function returns
+  		Class.forName("com.mysql.jdbc.Driver");    //loading jdbc driver
+  		try(Connection conn= DriverManager.getConnection(url,sqlUser,sqlPassword); Statement smt= conn.createStatement();){
+  			System.out.println("TASKS: ");
+  			String query="SELECT * FROM `"+email+"` WHERE task= 1";   
+  			ResultSet rs = smt.executeQuery(query);
+  			while(rs.next()){
+  				String data[]=new String[3];     //this has note at 0, id at 1 and deadline at 2 indices...
+  				String note=rs.getString("note");
+  				int id= rs.getInt("id");
+  				data[0]=note;
+  				System.out.println("Data[0]: "+data[0]);    //assignment
+  				
+  				
+  				data[1]=String.valueOf(id);
+  				System.out.println("Data[1]: "+data[1]);   
+  				
+  				System.out.println("Data is: "+data);
+  				
+  				data[2]=rs.getString("deadline");
+  				System.out.println("Data[2]: "+data[2]);
+  				retTasks.add(data);   
+  			}
+  			return retTasks;
+  		}
+  		catch(SQLException e){
+  			System.out.println(e);
+  			return null;
+  		}
+  		
+  	}
+  		
+  	
+  	
   %>
     <section class ="Form my-3 mx-3 ">
     <div class="container-fluid" >
@@ -185,6 +258,8 @@
                     ArrayList< ArrayList<String>> notes = new ArrayList< ArrayList<String>>(); //get_notes(session.getAttribute("user")); //[id, note]
                 	ArrayList< ArrayList<String>> todos = new ArrayList< ArrayList<String>>(); //get_todos(session.getAttribute("user")); //[id, todo, deadline]
                     //[id, note]
+                    fetchNotes("shreyas@gmail.com");
+                	fetchTasks("shreyas@gmail.com");
                 	 int i = 1;
                 	 int j = 1;
                       for(; i<=10 && j<=14; i++,j++)

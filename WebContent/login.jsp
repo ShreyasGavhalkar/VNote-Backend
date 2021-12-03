@@ -85,7 +85,7 @@
                         	   if(session.getAttribute("user") == "FAIL")
                         	   {
                         		   out.println("<b>Wrong password or email.</b>");
-                        		   session.getAttribute("user") = null
+                        		   //session.getAttribute("user") = null;
                         	   }
                         	   else
                         	   {

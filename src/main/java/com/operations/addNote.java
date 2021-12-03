@@ -38,13 +38,14 @@ public class addNote  extends HttpServlet
 			String[] details = Notes.split(",");
 			ArrayList<String> Data = new ArrayList<String>(Arrays.asList(details));
 			
+			System.out.println(Data.size());
 			System.out.println(Data);
 			String Deadline=Data.get(1);
 			System.out.println("Deadline is : "+Deadline);
 			int task;
-			boolean rvalue;
+			boolean rvalue;  //as per lord Alok's request, this is what holds the function's return value
 			if(Deadline.equals("NULL")) {
-				task=0;     //not a task
+				task=0;     //not a task   
 			}
 			else {
 				task=1;   //is a task
