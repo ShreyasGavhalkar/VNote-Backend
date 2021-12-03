@@ -20,16 +20,17 @@ public class addNote  extends HttpServlet
 	{
         HttpSession session = req.getSession();
 		
-		if(session.getAttribute("user")==null || session.getAttribute("user") == "FAIL")
-        {
-           
-              res.sendRedirect("login.jsp");
-              
-              
-        }
-		else
+//		if(session.getAttribute("user")==null || session.getAttribute("user") == "FAIL")
+//        {
+//           
+//              res.sendRedirect("login.jsp");
+//              
+//              
+//        }
+		//else
 		{
-			
+			String Notes = req.getParameter("NewNote");
+			System.out.println(Notes);
 			
 			
 			 res.sendRedirect("main.jsp");

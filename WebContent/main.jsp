@@ -51,6 +51,68 @@
   </div>
   </head>
   <body>
+  <script>
+  
+  function delete_notes()
+  {
+     var elements = document.querySelectorAll('.form-check-input');
+     var selected_ids = [];
+     
+     for(var i = 0; i<elements.length; i++)
+     {
+         if(elements[i].checked)
+         {
+            selected_ids.push(elements[i].id);
+         }
+     }
+     if(selected_ids.length == 0)
+    	 {
+    	   alert(" Please select the  items ");
+    	   return false;
+    	 }
+     else
+    	 {
+    	    var hiddenSelectedItems = document.getElementById("SelectedItems");
+    	    hiddenSelectedItems.value = selected_ids.join(",");
+    	    
+    	    var form = document.getElementById("send_delete");
+    	    form.submit();
+    	    return true;
+    	 }
+     
+    
+  }
+    function valid_form()
+    {
+  	  var newnote = document.getElementById("notetext");
+  	  var newdate = document.getElementById("date");
+  	  
+  	  if(newnote.value == "")
+  		  {
+  		     alert("Enter the Note");
+  	         return false;
+  		  }
+  	  
+  	   else
+          {
+  		    var data = []
+  		    data.push(newnote.value);
+  		    data.push(newdate.value);
+  		    var NewNote = document.getElementById("NewNote");
+  		    NewNote.value = data.join(",");
+  		    
+  		    document.getElementById("addnote").submit();
+  		    return true;
+          }
+  	  
+  	 
+  	  
+    }
+      
+  
+  
+  
+  </script>
   <%@ page import="java.util.ArrayList"  %>
   <%
       //if(session.getAttribute("user") == null || session.getAttribute("user") == "FAIL")
@@ -69,7 +131,8 @@
             <div class="col">
                 <h1 class = "font-weight-bold px-5 pt-5">Vnote</h1>
                 <h4 class = "px-5 pt-2 py-5">Welcome to an organized life!</h4>
-                <form class = "px-5">
+                <form class = "px-5" id = "addnote"  method = "post" action ="addNote">
+                <input type="hidden" name="NewNote" id="NewNote"/>
 
                     <div class ="row">
                         <div class="col-lg-9">
@@ -82,10 +145,10 @@
 <!-- Inputs -->
                     <div class ="row">
                         <div class="col-lg-9">
-                            <input type ="text" placeholder="Add Note Here...." class = "form-control my-3 p-4 ">
+                            <input type ="text" id = "notetext" placeholder="Add Note Here...." class = "form-control my-3 p-4 ">
                         </div>
                         <div class="col">
-                            <input type ="text" placeholder="DD/MM/YYYY" class = "form-control my-3 p-4 ">
+                            <input type ="text" id = "date" placeholder="DD/MM/YYYY" class = "form-control my-3 p-4 ">
                         </div>
                     </div>
                     
@@ -93,7 +156,7 @@
   
                     <div class ="form-row">
                         <div class="col-lg-4">
-                        <button type ="submit" name="delete" class="btn1 mt-3 mb-5">Add Note</button>
+                        <button type ="submit" onClick = "return valid_form()" name="delete" class="btn1 mt-3 mb-5">Add Note</button>
                     </div>
                 
                     </div>
@@ -162,7 +225,7 @@
                     	  String div2 = "<div class=\"col mx-3 px-5 py-5\" style=\" background:rgb(235, 235, 235) ;"+" border-radius: 26px;";
                     	  String div3 = "box-shadow: 0px 8px 15px rgb(107, 107, 107);\">";
                     	  String div4 = " <div class=\"form-check-inline\">";
-                    	  String div5 = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\sqlid\" checked\"> </div>";
+                    	  String div5 = "<input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"sqlid\" checked\"> </div>";
                     	 
                     	  String todo_content = "<output name=\"notes\">"+"Todo"+j+"</output> </div>" ; //todo.get(i).get(2)
                     	  out.println(div1);
@@ -182,62 +245,17 @@
                          }
                       }
                 %>
-                <div class ="row py-4 px-4" >
-                    <div class="col mx-3 px-5 py-5" style=" background:rgb(235, 235, 235) ;
-                    border-radius: 26px;
-                    box-shadow: 0px 8px 15px rgb(107, 107, 107);">
-                    <!-- label -->
-                        <div class="form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked">
-                          </div>
-                          <!-- output -->
-                        <output name="notes">No Notes yet</output>   
-                    </div>
-    
-                    <div class="col mx-3 px-5 py-5"style=" background: rgb(235, 235, 235);
-                    border-radius: 26px;
-                    box-shadow: 0px 8px 15px rgb(107, 107, 107);">
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked">
-                      </div>
-                        
-                        <output name="notes"> No Tasks yet</output>
-                           
-                    </div>
-                </div> 
-
-                <!-- ============Line 2 repeat of above (can use only above for loop)================= -->
-               
-                <div class ="row py-4 px-4" >
-                    <div class="col mx-3 px-5 py-5" style=" background:rgb(235, 235, 235) ;
-                    border-radius: 26px;
-                    box-shadow: 0px 8px 15px rgb(107, 107, 107);">
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked">
-                      </div>
-                    <output name="notes"> No Tasks yet</output>
-                
-                </div>
-    
-                    <div class="col mx-3 px-5 py-5"style=" background: rgb(235, 235, 235);
-                    border-radius: 26px;
-                    box-shadow: 0px 8px 15px rgb(107, 107, 107);">
-
-                    <div class="form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked">
-                      </div>
-                       
-                        <output name="notes"> No Tasks yet</output>
-                           
-                    </div>
-                </div>
+             
                 <!-- ================ line 2 end============= -->
                 
 <!-- Button 2 -->
 
                 <div class ="form-row px-5">
                     <div class="col-lg-4">
-                    <button type ="button" name="delete" class="btn1 mt-3 mb-5">Delete Selected</button>
+                    <form id = "send_delete" method = "post" action ="deleteNote" > 
+                     <input type="hidden" name="SelectedItems" id="SelectedItems"/>
+                    <button type ="button" onclick=" return delete_notes()" name="delete" class="btn1 mt-3 mb-5">Delete Selected</button>
+                    </form>
                 </div>
             
                 </div>

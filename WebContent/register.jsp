@@ -15,9 +15,9 @@
     <title>Vnote | Register </title>
 
     <script>
-        let input=document.forms["myForm"]["pass"].value;
+         let input=document.forms["myForm"]["password"].value;
         function validateForm() {
-        let x = document.forms["myForm"]["pass"].value;
+        let x = document.forms["myForm"]["password"].value;
         let x1 = document.forms["myForm"]["email"].value;
         if (x== "") {
         alert("Password is required");
