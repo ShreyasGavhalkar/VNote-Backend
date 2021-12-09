@@ -62,7 +62,7 @@ public class deleteNote  extends HttpServlet{
 				smt.executeUpdate(query);  //well this actually does that.. the line before just selects it..
 				
 			}
-			return true;   //lord alok wanted every function to return something so here this is...
+			return true;   
 		} 
 		catch (Exception e) {
 			// TODO Auto-generated catch block

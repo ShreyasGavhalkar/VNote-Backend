@@ -24,13 +24,12 @@ public class LoginServlet extends HttpServlet {
 			try {
 				if (valid_login(email, password)) 
 				{
-					System.out.println("In valid IF");
 					session.setAttribute("user", email); // i am sending email as the corresponding value for user
 					res.sendRedirect("main.jsp");
 				} 
 				else
 				{	
-					System.out.println("In session else");
+					
 					session.setAttribute("user", "FAIL");
 					res.sendRedirect("login.jsp");
 					// redirect to login jsp, display wrong password through jsp scripting
@@ -60,8 +59,7 @@ public class LoginServlet extends HttpServlet {
 		try ( Connection conn = DriverManager.getConnection(url, sqlUser, sqlPassword); Statement smt = conn.createStatement();) {
 			//smt.executeUpdate("USE Vnote"); // select jdbc
 			
-			System.out.println("Password passed: "+password);
-			System.out.println("Email passed: "+email);
+			
 
 //			email="shreyas@gmail.com";
 //			password="shreyas";
@@ -69,7 +67,7 @@ public class LoginServlet extends HttpServlet {
 			ResultSet rs = smt.executeQuery("SELECT * FROM userauth WHERE email= '" + email+"'");
 													
 			if (rs.next()) {
-				System.out.println("In in! thats what she sad...");
+			
 				String pass = rs.getString("pass");
 				System.out.println("Password in DB: " + rs.getString("pass"));
 				if (pass.equals(password)) { // check password
@@ -81,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 				} 
 			}
 			else {
-				System.out.println("Empty yetay be");
+				
 				return false;
 			}
 		}

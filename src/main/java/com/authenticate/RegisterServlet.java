@@ -54,7 +54,7 @@ public class RegisterServlet extends HttpServlet {
 	}
 	
 
-	public boolean registered(String password, String email) throws ClassNotFoundException // Lord Shreyas will write this
+	public boolean registered(String password, String email) throws ClassNotFoundException 
 	{
 		// code for registration
 		Class.forName("com.mysql.jdbc.Driver");
@@ -66,7 +66,6 @@ public class RegisterServlet extends HttpServlet {
 			System.out.println("passed email: "+email);
 
 			
-		//	smt.executeUpdate("USE trial"); //TODO: chnage to final DB before presentation
 			ResultSet rs = smt.executeQuery("SELECT * FROM userauth WHERE email= \"" + email+"\"");
 			
 			
@@ -85,7 +84,7 @@ public class RegisterServlet extends HttpServlet {
 
 			} else {
 				// the user already exists which is a no no
-				return false; // politely tell the user to stop spamming and fuck off
+				return false; 
 			}
 
 		}
