@@ -133,7 +133,7 @@
   %>
   <%!
   	
-  	String url = "jdbc:mysql://localhost:3306/trial"; // required for jdbc
+  	String url = "jdbc:mysql://localhost:3306/Vnote"; // required for jdbc
 	String sqlUser = "root";
 	String sqlPassword = "root@SQL123";
   	

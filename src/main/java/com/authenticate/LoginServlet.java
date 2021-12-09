@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class LoginServlet extends HttpServlet {
-	static final String url = "jdbc:mysql://localhost:3306/trial"; // required for jdbc
+	static final String url = "jdbc:mysql://localhost:3306/Vnote"; // required for jdbc
 	static final String sqlUser = "root";
 	static final String sqlPassword = "root@SQL123";
 

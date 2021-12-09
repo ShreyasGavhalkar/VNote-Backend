@@ -10,7 +10,7 @@ import java.sql.*;
 
 public class RegisterServlet extends HttpServlet {
 	// init of req attributes for connection with DB
-	static final String url = "jdbc:mysql://localhost:3306/trial"; // required for jdbc
+	static final String url = "jdbc:mysql://localhost:3306/Vnote"; // required for jdbc
 	static final String sqlUser = "root";
 	static final String sqlPassword = "root@SQL123";
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
