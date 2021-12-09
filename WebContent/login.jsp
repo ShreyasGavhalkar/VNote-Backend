@@ -57,9 +57,7 @@
     <section class ="Form my-4 mx-5">
     <div class="container">
         <div class ="row g-0">
-            <div class="col-lg-5">
-                <img src="./image.jpg" class="img-fluid" alt="">
-            </div>
+            
             <div class="col-lg-7">
                 <h1 class = "font-weight-bold px-5 pt-5">Vnote</h1>
                 <h4 class = "px-5 pt-5"> Welcome! Sign in to continue</h4>
